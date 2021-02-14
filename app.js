@@ -15,16 +15,24 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
-  imagesArea.style.display = 'block';
-  gallery.innerHTML = '';
-  // show gallery title
-  galleryHeader.style.display = 'flex';
-  images.forEach(image => {
-    let div = document.createElement('div');
-    div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-    div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
-    gallery.appendChild(div)
-  })
+  console.log(images);
+  console.log(images.length);
+  if(images.length == 0){
+    document.getElementById('no-result').style.display = 'block';
+  }
+  else{
+    document.getElementById('no-result').style.display = 'none';
+    imagesArea.style.display = 'block';
+    gallery.innerHTML = '';
+    // show gallery title
+    galleryHeader.style.display = 'flex';
+    images.forEach(image => {
+      let div = document.createElement('div');
+      div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
+      div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
+      gallery.appendChild(div)
+    })
+  }
   loadData();
 }
 
@@ -131,7 +139,9 @@ const changeSlide = (index) => {
 }
 
 searchBtn.addEventListener('click', function () {
+  //document.getElementById('no-result').style.display = 'none';
   document.querySelector('.main').style.display = 'none';
+  imagesArea.style.display = 'none';
   let slideButton = document.getElementById('slide-btn');
   if(slideButton.classList[1] == 'btn-success'){
     slideButton.classList.remove('btn-success');
